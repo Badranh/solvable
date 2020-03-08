@@ -24,16 +24,12 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function home(Request $request) {
+        if ($request->user()->workshop != NULL)
+            return redirect(route('workshop.view'));
+
         if ($request->user()->role == 0){
             $ucount = User::where('approved',false)->count();
             return view('admin/admin',compact('ucount'));
-        }
-
-        if ($request->user()->workshop != NULL) {
-
-            $w = $request->user()->workshop;
-            return redirect(route('workshop.view'));
-            //return view('User/workshopfacilitator',compact('w'));
         }
 
         return view('home');

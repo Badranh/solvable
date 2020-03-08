@@ -43,7 +43,7 @@ class User extends Authenticatable
     protected $attributes = [
         'approved' => false,
         'role' => 1,
-        'iteration' => 1,
+        'iteration' => 0,
         'workshop_id' => 0,
         'workshop_pos' => 0,
     ];
@@ -53,7 +53,7 @@ class User extends Authenticatable
     }
 
     public function card() {
-        return $this->hasOne(Card::class);
+        return $this->belongsTo(Card::class);
     }
     
 }

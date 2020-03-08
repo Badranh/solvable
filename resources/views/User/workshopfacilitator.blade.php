@@ -49,7 +49,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($w->cards as $card)
+                @foreach($w->cards()->orderBy('score','DESC')->get() as $card)
                 <tr>
                     <td>{{$card->user->name}}</td>
                     <td>{{$card->text}}</td>
@@ -60,6 +60,18 @@
         </table>
         @endif
     </div>
+
+
+
+    <!--Allow facilitator to finalize workshop if all users have voted-->
+    @if(auth()->user()->workshop->voted == auth()->user()->workshop->nparticipants)
+    <form action="{{ route('workshop.end') }}" method="post">
+            @csrf
+            <center>
+                <button type="submit" class="btn btn-primary">Finish Workshop</button>
+            </center>
+        </form>
+    @endif
 </div>
 </div>
 </div>
@@ -74,8 +86,7 @@ var pusher = new Pusher('f53e8cd63802d26fd848', {
 });
 
 var channel = pusher.subscribe('{{ $w->link }}');
-channel.bind('my-event', function(data) {
+channel.bind('facilitator', function(data) {
     window.location.reload();
-    //alert(JSON.stringify(data));
 });
 </script>

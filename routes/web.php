@@ -18,26 +18,29 @@ Route::get('/test', function () {
 
 //Index
 Auth::routes();
-Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@home')->name('home')->middleware('auth','approved');
+Route::get('/', 'HomeController@index','workshop');
+Route::get('/home', 'HomeController@home')->name('home')->middleware('auth','approved','workshop');
 
 //Admin Routes
 Route::get('/admin/approve','AdminController@getusers')->middleware('auth','admin','approved')->name('review');
 Route::post('/admin/approve','AdminController@approve')->middleware('auth','admin','approved');
 
 //Workshop
-Route::post('/workshop/create', 'WorkshopController@store')->name('workshop.create')->middleware('auth','approved');
-Route::post('/workshop/join', 'UserController@joinWorkshop')->name('workshop.join')->middleware('auth','approved');
+Route::post('/workshop/create', 'WorkshopController@store')->name('workshop.create')->middleware('auth','approved','workshop');
+Route::post('/workshop/join', 'UserController@joinWorkshop')->name('workshop.join')->middleware('auth','approved','workshop');
 Route::post('/workshop/begin', 'WorkshopController@initialize')->name('workshop.begin')->middleware('auth','approved');
+Route::post('/workshop/end', 'WorkshopController@finalize')->name('workshop.end')->middleware('auth','approved');
 Route::get('/workshop', 'WorkshopController@view')->name('workshop.view')->middleware('auth','approved');
+Route::get('/workshop/view', 'WorkshopController@viewHistory')->name('workshop.history')->middleware('auth','approved','workshop');
 
 //User
 Route::get('/create', function () {
     return view('User/createworkshop');
-})->middleware('auth','approved');
+})->middleware('auth','approved','workshop');
 Route::get('/join', function () {
     return view('User/joinworkshop');
-})->middleware('auth','approved');
+})->middleware('auth','approved','workshop');
+Route::get('/history', 'UserController@history')->middleware('auth','approved','workshop');
 
 //Card
 Route::post('/card/create', 'UserController@createCard')->name('card.create')->middleware('auth','approved');

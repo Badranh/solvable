@@ -15,11 +15,13 @@ class TestEvent implements ShouldBroadcast {
 
     public $message;
     public $channel;
+    public $event;
 
-    public function __construct($message,$channel)
+    public function __construct($message,$channel,$event)
     {
         $this->message = $message;
         $this->channel = $channel;
+        $this->event = $event;
 
     }
   
@@ -30,6 +32,6 @@ class TestEvent implements ShouldBroadcast {
   
     public function broadcastAs()
     {
-        return 'my-event';
+        return $this->event;
     }
 }

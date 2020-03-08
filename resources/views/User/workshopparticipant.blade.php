@@ -13,7 +13,7 @@
     </div>
     @elseif(!$w->isShuffling())
     <!--Waiting for participants to give thier solutions-->
-        @if(auth()->user()->card == null)
+        @if(auth()->user()->card_id == -1)
         <!--Ask participant for a solution-->
         <div class="card-body">
             <center>Problem:</center><br>
@@ -33,7 +33,7 @@
             <center>Please wait while everyone else submits thier solutions.</center><br>
         </div>
         @endif
-    @elseif(auth()->user()->iteration < $w->participants()->count() -2)
+    @elseif(auth()->user()->iteration < $w->participants()->count() - 2 && auth()->user()->iteration < $w->rounds)
     <!--Shuffling solutions for answers-->
     <div class="card-body">
         <center>Problem:</center>
@@ -43,9 +43,9 @@
         <form action="{{ route('card.rate') }}" method="post">
             <div class="card-body">
                 @csrf
-                <label>Your Solution:</label>
+                <label>Your Rating:</label>
                 <input type="number" class="form-control" name="rating"><br>
-                <center><button type="submit" class="btn btn-primary" name="cid" value="{{$c->id}}">Submit Solution</button></center>
+                <center><button type="submit" class="btn btn-primary" name="cid" value="{{$c->id}}">Submit Rating</button></center>
             </div>
         </form>
     </div>
@@ -60,7 +60,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($w->cards as $card)
+        @foreach($w->cards()->orderBy('score','DESC')->get() as $card)
         <tr>
             <td>{{$card->user->name}}</td>
             <td>{{$card->text}}</td>
@@ -75,3 +75,16 @@
 </div>
 </div>
 @endsection
+
+<script src="https://js.pusher.com/5.1/pusher.min.js"></script>
+<script>
+var pusher = new Pusher('f53e8cd63802d26fd848', {
+    cluster: 'eu',
+    forceTLS: true
+});
+
+var channel = pusher.subscribe('{{ $w->link }}');
+channel.bind('participant', function(data) {
+    window.location.reload();
+});
+</script>

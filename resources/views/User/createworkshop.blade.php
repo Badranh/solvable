@@ -15,6 +15,8 @@
                         <input type="text" class="form-control" name="problem" />
                         <label>Number of participants:</label>
                         <input type="number" class="form-control" name="nparticipants" />
+                        <label>Number of rounds:</label>
+                        <input type="number" class="form-control" name="rounds" value=5/>
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Create Workshop</button>

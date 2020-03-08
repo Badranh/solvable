@@ -25,9 +25,16 @@ class WorkshopController extends Controller {
         $w = new Workshop();
         $w->Title = $request->get('title');
         $w->Problem = $request->get('problem');
-        $w->nparticipants = $request->get('nparticipants');
         $w->owner = $request->user()->id;
         $w->link = $this->randomS(15);
+        if ($request->rounds > 0)
+            $w->rounds = $request->rounds;
+        else 
+            $w->rounds = 1;
+        if ($request->nparticipants > 2)
+            $w->nparticipants = $request->get('nparticipants');
+        else
+            $w->nparticipants = 3;
         $w->save();
 
         $request->user()->workshop()->associate($w);
@@ -38,21 +45,20 @@ class WorkshopController extends Controller {
 
     public function view(Request $r) {
         $w = $r->user()->workshop;
-        //event(new TestEvent($r->user(),$w->link));
+        if (!$w) return redirect(route('home'));
 
         if ($r->user()->id == $w->owner) {
             //Workshop Facilitator
             return view('User/workshopfacilitator',compact('w'));
         } else{
             //Workshop Participant
-
             if (!$w->isShuffling()) {
                 //users are submiting thier cards
                 return view('User/workshopparticipant',compact('w'));
-            } else if ($r->user()->iteration < $w->participants()->count() -2){   
+            } else if ($r->user()->iteration < $w->participants()->count() - 2 && $r->user()->iteration < $w->rounds){   
                 //user is rating cards
                 $i = ($r->user()->iteration + $r->user()->workshop_pos) % ($w->participants()->count() - 1);
-                $u = $w->participants->where('workshop_pos',$i)->first();
+                $u = $w->participants->where('workshop_pos',$i+1)->first();
                 $c = $u->card;
                 return view('User/workshopparticipant',compact('w','c'));
             } else {
@@ -69,6 +75,17 @@ class WorkshopController extends Controller {
     }
 
     public function finalize(Request $r) {
+        $w = $r->user()->workshop;
+        $w->finalize();
+        return redirect(route('home'));
+    }
 
+    public function viewHistory(Request $r) {
+        $w = Workshop::where('id',$r->wid)->first();
+        $c = $w->cards()->where('user_id',$r->user()->id)->count();
+        if ($w->owner == $r->user()->id || $c != 0)
+            return view ('User/workshop',compact('w'));
+        
+        return redirect(route('home'));
     }
 }

@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Workshop extends Model {
     protected $fillable = [
-        'Title', 'Problem', 'owner', 'link', 'nparticipants',
+        'Title', 'Problem', 'owner', 'link', 'nparticipants', 'rounds'
+    ];
+
+    protected $attributes = [
+        'voted' => 0,
     ];
 
     public function participants() {
@@ -22,7 +26,19 @@ class Workshop extends Model {
         if (!$this->isFull()) {
             $this->nparticipants = $this->participants()->count()-1;
             $this->save();
-            event(new TestEvent(auth()->user(),auth()->user()->workshop->link));
+        }
+        event(new TestEvent('hello',auth()->user()->workshop->link,'facilitator'));
+        event(new TestEvent('hello',auth()->user()->workshop->link,'participant'));
+    }
+
+    public function finalize() {
+        $participants = $this->participants;
+        foreach ($participants as $p) {
+            $p->workshop_id = 0;
+            $p->iteration = 0;
+            $p->workshop_pos = 0;
+            $p->card_id = -1;
+            $p->save();
         }
     }
 
