@@ -73,7 +73,7 @@ class UserController extends Controller {
     }
 
     public function history (Request $r) {
-        $workshops = Workshop::where('owner',$r->user()->id)->get();
+        $workshops = Workshop::where('owner',$r->user()->id)->orderBy('created_at','ASC')->get();
         $cards = Card::where('user_id',$r->user()->id)->get();
         return view('User/history',compact('workshops','cards'));
     }

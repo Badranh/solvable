@@ -15,6 +15,7 @@
                 <tr>
                     <th>Title</th>
                     <th>Problem</th>
+                    <th>Date</th>
                     <th> </th>
                 </tr>
             </thead>
@@ -23,6 +24,7 @@
                 <tr>
                     <td>{{$w->Title}} </td>
                     <td>{{$w->Problem}} </td>
+                    <td>{{$w->created_at}} </td>
                     <td>
                     <button type="button" class="btn btn-outline-success btn-sm float-right" onclick="window.location.href = '/workshop/view?wid={{$w->id}}'">View</button>
                     </td>
