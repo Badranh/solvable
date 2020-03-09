@@ -43,6 +43,7 @@
                 <tr>
                     <th>Title</th>
                     <th>Problem</th>
+                    <th>Date</th>
                     <th> </th>
                 </tr>
             </thead>
@@ -51,6 +52,7 @@
                 <tr>
                     <td>{{$c->workshop->Title}} </td>
                     <td>{{$c->workshop->Problem}} </td>
+                    <td>{{$c->workshop->created_at}} </td>
                     <td>
                     <button type="button" class="btn btn-outline-success btn-sm float-right" onclick="window.location.href = '/workshop/view?wid={{$c->workshop->id}}'">View</button>
                     </td>
