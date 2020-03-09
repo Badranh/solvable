@@ -10,16 +10,14 @@
         </main>
 
         <br><br>
+        <br><br>
 
         <div class="container d-flex h-100">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-4">
                     <div class="card mb-7 box-shadow">
-                        <div class="card-head">
-                            <br>
-                            <strong>
-                            Create a Workshop
-                            </strong>
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal">Create a Workshop</h4>
                         </div>
                         <div class="card-body">
                             <p class="card-text">Propose a problem and invite people to help you find an inventive solution.</p>
@@ -28,11 +26,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card mb-7 box-shadow">
-                        <div class="card-head">
-                            <br>
-                            <strong>
-                            Propose a Solution
-                            </strong>
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal">Propose a Solution</h4>
                         </div>
                         <div class="card-body">
                             <p class="card-text">And rate other people's solutions based on how out of the box they are.</p>
@@ -42,11 +37,8 @@
 
                 <div class="col-md-4">
                     <div class="card mb-7 box-shadow">
-                        <div class="card-head">
-                            <br>
-                            <strong>
-                            View the Results
-                            </strong>
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal">View the Results</h4>
                         </div>
                         <div class="card-body">
                             <p class="card-text">Find the best solution by viewing the ideas from highest rating to lowest.</p>
@@ -59,7 +51,7 @@
         <br><br>
 
         <p class="lead">
-            <a href="/register" class="btn btn-lg btn-secondary">Get Started</a>
+            <a href="/register" class="btn btn-lg btn-primary">Get Started</a>
         </p>
     </div>
 </body>
