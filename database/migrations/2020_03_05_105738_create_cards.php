@@ -19,10 +19,6 @@ class CreateCards extends Migration {
             $table->integer('user_id')->unsigned();
             $table->integer('workshop_id')->unsigned();
         });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('card_id')->unsigned();
-        });
     }
 
     /**

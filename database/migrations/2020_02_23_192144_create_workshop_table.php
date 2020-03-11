@@ -20,6 +20,9 @@ class CreateWorkshopTable extends Migration
             $table->string('link');
             $table->integer('owner')->unsigned();
             $table->timestamps();
+            $table->integer('nparticipants');
+            $table->integer('voted');
+            $table->integer('rounds');
         });
     }
 

@@ -21,6 +21,12 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->boolean('approved');
+            $table->integer('role');
+            $table->integer('workshop_id');
+            $table->integer('workshop_pos');
+            $table->integer('card_id');
+            $table->integer('iteration');
         });
     }
 
