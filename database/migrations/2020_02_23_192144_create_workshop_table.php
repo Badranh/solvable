@@ -13,7 +13,7 @@ class CreateWorkshopTable extends Migration
      */
     public function up()
     {
-        Schema::create('workshop', function (Blueprint $table) {
+        Schema::create('workshops', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('Title');
             $table->string('Problem');
