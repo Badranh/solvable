@@ -23,6 +23,6 @@ class OopsWorkshop extends Migration
      */
     public function down()
     {
-        //
+        Schema::rename('workshops', 'workshop');
     }
 }
