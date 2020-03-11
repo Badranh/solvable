@@ -46,6 +46,7 @@ class User extends Authenticatable
         'iteration' => 0,
         'workshop_id' => 0,
         'workshop_pos' => 0,
+        'card_id' => -1,
     ];
 
     public function workshop() {
