@@ -11,7 +11,8 @@ class IterationAndWspos extends Migration
      *
      * @return void
      */
-    public function up(){
+    public function up()
+    {
         Schema::table('users', function (Blueprint $table) {
             $table->integer('iteration')->unsigned();
             $table->integer('workshop_pos')->unsigned();
@@ -27,15 +28,18 @@ class IterationAndWspos extends Migration
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::table('users', function (Blueprint $table) {
             if (Schema::hasColumn('users', 'workshop_pos')) {
                 $table->dropColumn('workshop_pos');
+                $table->integer('iteration')->unsigned();
             }
         });
         Schema::table('workshops', function (Blueprint $table) {
             if (Schema::hasColumn('workshops', 'iteration')) {
-                $table->dropColumn('iteration');
+                $table->integer('voted')->unsigned();
+                $table->integer('rounds')->unsigned();
             }
         });
     }
