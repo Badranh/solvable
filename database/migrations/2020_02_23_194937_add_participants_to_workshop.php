@@ -13,7 +13,7 @@ class AddParticipantsToWorkshop extends Migration
      */
     public function up()
     {
-        Schema::table('workshop', function (Blueprint $table) {
+        Schema::table('workshops', function (Blueprint $table) {
             $table->integer('nparticipants')->unsigned();
         });
     }
