@@ -13,10 +13,12 @@ class IterationAndWspos extends Migration
      */
     public function up(){
         Schema::table('users', function (Blueprint $table) {
+            $table->integer('iteration')->unsigned();
             $table->integer('workshop_pos')->unsigned();
         });
         Schema::table('workshops', function (Blueprint $table) {
-            $table->integer('iteration')->unsigned();
+            $table->integer('voted')->unsigned();
+            $table->integer('rounds')->unsigned();
         });
     }
 
