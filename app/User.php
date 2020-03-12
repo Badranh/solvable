@@ -41,7 +41,7 @@ class User extends Authenticatable
     //0 = admin
     //1 = user
     protected $attributes = [
-        'approved' => false,
+        'approved' => true,
         'role' => 0,
         'iteration' => 0,
         'workshop_id' => 0,
