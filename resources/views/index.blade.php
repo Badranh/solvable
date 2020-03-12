@@ -49,6 +49,7 @@
         </div>
 
         <br><br>
+        <br><br>
 
         <p class="lead">
             <a href="/register" class="btn btn-lg btn-primary">Get Started</a>

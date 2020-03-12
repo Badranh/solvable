@@ -27,6 +27,20 @@ class Workshop extends Model {
             $this->nparticipants = $this->participants()->count()-1;
             $this->save();
         }
+        $a = array();
+        for ($i = 0;$i<$this->nparticipants;$i++)
+            $a[$i] = $i+1;
+        
+        shuffle($a);
+
+        $i = 0;
+        foreach ($this->participants as $u){
+            if ($u->id != auth()->user()->id) {
+                $u->workshop_pos = $a[$i];
+                $u->save();
+                $i++;
+            }
+        }
         event(new TestEvent('hello',auth()->user()->workshop->link,'facilitator'));
         event(new TestEvent('hello',auth()->user()->workshop->link,'participant'));
     }
