@@ -42,7 +42,7 @@ class User extends Authenticatable
     //1 = user
     protected $attributes = [
         'approved' => false,
-        'role' => 1,
+        'role' => 0,
         'iteration' => 0,
         'workshop_id' => 0,
         'workshop_pos' => 0,
